@@ -72,27 +72,28 @@ export default async function SearchPage({
 
   return (
     <PageShell
+      eyebrow="Discovery"
       title="Search"
       description={
         query
-          ? `Results for "${query}"`
-          : "Browse the latest posts across every task."
+          ? `Results for “${query}” across PDFs, profiles, and other published posts.`
+          : "Browse the newest indexed posts. Add a query to narrow by title, summary, tags, or body text."
       }
       actions={
-        <form action="/search" className="flex w-full gap-2 sm:w-auto">
+        <form action="/search" className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
           <input type="hidden" name="master" value="1" />
           {category ? <input type="hidden" name="category" value={category} /> : null}
           {task ? <input type="hidden" name="task" value={task} /> : null}
           <div className="relative w-full sm:w-80">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
             <Input
               name="q"
               defaultValue={query}
-              placeholder="Search across tasks..."
-              className="h-11 pl-9"
+              placeholder="Search PDFs, profiles, titles…"
+              className="h-11 rounded-full border-neutral-200 pl-9"
             />
           </div>
-          <Button type="submit" className="h-11">
+          <Button type="submit" className="h-11 rounded-full bg-neutral-950 px-6 font-semibold text-white hover:bg-neutral-800">
             Search
           </Button>
         </form>
@@ -107,8 +108,8 @@ export default async function SearchPage({
           })}
         </div>
       ) : (
-        <div className="rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
-          No matching posts yet.
+        <div className="rounded-[1.25rem] border border-dashed border-neutral-300 bg-neutral-50/60 p-12 text-center text-sm text-neutral-600">
+          No matches yet. Try a shorter keyword or clear filters.
         </div>
       )}
     </PageShell>

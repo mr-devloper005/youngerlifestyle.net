@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Plus, Save } from "lucide-react";
 import { NavbarShell } from "@/components/shared/navbar-shell";
+import { Footer } from "@/components/shared/footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -182,17 +183,23 @@ export default function CreateTaskPage() {
 
   if (!taskConfig || !formConfig) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-white text-neutral-950">
         <NavbarShell />
-        <main className="mx-auto max-w-3xl px-4 py-16 text-center">
-          <h1 className="text-2xl font-semibold text-foreground">Task not available</h1>
-          <p className="mt-2 text-muted-foreground">
+        <main className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 lg:px-8">
+          <h1 className="font-sans text-2xl font-bold tracking-[-0.02em] text-neutral-950 sm:text-3xl">
+            Task not available
+          </h1>
+          <p className="mt-3 text-neutral-600">
             This task is not enabled for the current site.
           </p>
-          <Button className="mt-6" asChild>
+          <Button
+            className="mt-8 rounded-full bg-neutral-950 px-6 text-white hover:bg-neutral-800"
+            asChild
+          >
             <Link href="/">Back home</Link>
           </Button>
         </main>
+        <Footer />
       </div>
     );
   }
@@ -270,125 +277,168 @@ export default function CreateTaskPage() {
     router.push(`/local/${taskKey}/${post.slug}`);
   };
 
+  const fieldClass =
+    "rounded-xl border border-neutral-200 bg-white text-neutral-950 placeholder:text-neutral-400 focus-visible:border-violet-300 focus-visible:ring-2 focus-visible:ring-violet-500/20";
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white text-neutral-950">
       <NavbarShell />
-      <main className="mx-auto max-w-4xl px-4 py-12">
-        <div className="mb-8 flex items-center gap-3">
-          <Button variant="ghost" size="icon" asChild>
-            <Link href="/">
-              <ArrowLeft className="h-5 w-5" />
-            </Link>
-          </Button>
-          <div>
-            <h1 className="text-2xl font-semibold text-foreground">{formConfig.title}</h1>
-            <p className="text-sm text-muted-foreground">{formConfig.description}</p>
-          </div>
-        </div>
-
-        <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
-          <div className="flex flex-wrap gap-2">
-            <Badge variant="secondary">{taskConfig.label}</Badge>
-            <Badge variant="outline">Local-only</Badge>
-          </div>
-
-          <div className="mt-6 grid gap-6">
-            {formConfig.fields.map((field) => (
-              <div key={field.key} className="grid gap-2">
-                <Label>
-                  {field.label} {field.required ? <span className="text-red-500">*</span> : null}
-                </Label>
-                {field.type === "textarea" ? (
-                  <Textarea
-                    rows={4}
-                    placeholder={field.placeholder}
-                    value={values[field.key] || ""}
-                    onChange={(event) => updateValue(field.key, event.target.value)}
-                    className="border-2 border-slate-200 bg-white focus-visible:ring-2 focus-visible:ring-primary/30"
-                  />
-                ) : field.type === "category" ? (
-                  <select
-                    value={values[field.key] || ""}
-                    onChange={(event) => updateValue(field.key, event.target.value)}
-                    className="h-11 rounded-lg border-2 border-slate-200 bg-white px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
-                  >
-                    <option value="">Select category</option>
-                    {CATEGORY_OPTIONS.map((option) => (
-                      <option key={option.slug} value={option.slug}>
-                        {option.name}
-                      </option>
-                    ))}
-                  </select>
-                ) : field.type === "file" ? (
-                  <div className="grid gap-3">
-                    <Input
-                      type="file"
-                      accept="application/pdf"
-                      onChange={(event) => {
-                        const file = event.target.files?.[0];
-                        if (!file) return;
-                        if (file.type !== "application/pdf") {
-                          toast({
-                            title: "Invalid file",
-                            description: "Please upload a PDF file.",
-                          });
-                          return;
-                        }
-                        const reader = new FileReader();
-                        setUploadingPdf(true);
-                        reader.onload = () => {
-                          const result = typeof reader.result === "string" ? reader.result : "";
-                          updateValue(field.key, result);
-                          setUploadingPdf(false);
-                          toast({
-                            title: "PDF uploaded",
-                            description: "File is stored locally.",
-                          });
-                        };
-                        reader.readAsDataURL(file);
-                      }}
-                    />
-                    <Input
-                      type="text"
-                      placeholder="Or paste a PDF URL"
-                      value={values[field.key] || ""}
-                      onChange={(event) => updateValue(field.key, event.target.value)}
-                    />
-                    {uploadingPdf ? (
-                      <p className="text-xs text-muted-foreground">Uploading PDF…</p>
-                    ) : null}
-                  </div>
-                ) : (
-                  <Input
-                    type={field.type === "number" ? "number" : "text"}
-                    placeholder={
-                      field.type === "images" || field.type === "tags" || field.type === "highlights"
-                        ? "Separate values with commas"
-                        : field.placeholder
-                    }
-                    value={values[field.key] || ""}
-                    onChange={(event) => updateValue(field.key, event.target.value)}
-                    className="h-11 border-2 border-slate-200 bg-white focus-visible:ring-2 focus-visible:ring-primary/30"
-                  />
-                )}
+      <main>
+        <section className="border-b border-neutral-200 bg-white">
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
+            <div className="mx-auto max-w-4xl">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+                <Link
+                  href="/"
+                  className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-900 shadow-sm transition hover:bg-neutral-50"
+                  aria-label="Back to home"
+                >
+                  <ArrowLeft className="h-5 w-5" />
+                </Link>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                    Create
+                  </p>
+                  <h1 className="mt-2 font-sans text-3xl font-bold tracking-[-0.04em] text-neutral-950 sm:text-4xl">
+                    {formConfig.title}
+                  </h1>
+                  <p className="mt-3 max-w-2xl text-base leading-relaxed text-neutral-600">
+                    {formConfig.description}
+                  </p>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
+        </section>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button onClick={handleSubmit}>
-              <Save className="mr-2 h-4 w-4" />
-              Save locally
-            </Button>
-            <Button variant="ghost" asChild>
-              <Link href={taskConfig.route}>
-                View {taskConfig.label}
-                <Plus className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+        <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+          <div className="mx-auto max-w-4xl">
+            <div className="rounded-[1.75rem] border border-neutral-200 bg-neutral-50/80 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.06)] sm:p-8">
+              <div className="flex flex-wrap gap-2">
+                <Badge
+                  variant="outline"
+                  className="rounded-full border-neutral-200 bg-white px-3 py-1 text-xs font-semibold text-neutral-800"
+                >
+                  {taskConfig.label}
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className="rounded-full border-neutral-200 bg-white/90 px-3 py-1 text-xs font-semibold text-neutral-600"
+                >
+                  Local-only
+                </Badge>
+              </div>
+
+              <div className="mt-6 grid gap-6">
+                {formConfig.fields.map((field) => (
+                  <div key={field.key} className="grid gap-2">
+                    <Label className="text-sm font-medium text-neutral-800">
+                      {field.label}{" "}
+                      {field.required ? <span className="text-red-600">*</span> : null}
+                    </Label>
+                    {field.type === "textarea" ? (
+                      <Textarea
+                        rows={4}
+                        placeholder={field.placeholder}
+                        value={values[field.key] || ""}
+                        onChange={(event) => updateValue(field.key, event.target.value)}
+                        className={fieldClass}
+                      />
+                    ) : field.type === "category" ? (
+                      <select
+                        value={values[field.key] || ""}
+                        onChange={(event) => updateValue(field.key, event.target.value)}
+                        className={`h-11 px-3 text-sm text-neutral-950 ${fieldClass} focus-visible:outline-none`}
+                      >
+                        <option value="">Select category</option>
+                        {CATEGORY_OPTIONS.map((option) => (
+                          <option key={option.slug} value={option.slug}>
+                            {option.name}
+                          </option>
+                        ))}
+                      </select>
+                    ) : field.type === "file" ? (
+                      <div className="grid gap-3">
+                        <Input
+                          type="file"
+                          accept="application/pdf"
+                          className={`h-11 cursor-pointer file:mr-3 file:rounded-lg file:border-0 file:bg-neutral-900 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white ${fieldClass}`}
+                          onChange={(event) => {
+                            const file = event.target.files?.[0];
+                            if (!file) return;
+                            if (file.type !== "application/pdf") {
+                              toast({
+                                title: "Invalid file",
+                                description: "Please upload a PDF file.",
+                              });
+                              return;
+                            }
+                            const reader = new FileReader();
+                            setUploadingPdf(true);
+                            reader.onload = () => {
+                              const result = typeof reader.result === "string" ? reader.result : "";
+                              updateValue(field.key, result);
+                              setUploadingPdf(false);
+                              toast({
+                                title: "PDF uploaded",
+                                description: "File is stored locally.",
+                              });
+                            };
+                            reader.readAsDataURL(file);
+                          }}
+                        />
+                        <Input
+                          type="text"
+                          placeholder="Or paste a PDF URL"
+                          value={values[field.key] || ""}
+                          onChange={(event) => updateValue(field.key, event.target.value)}
+                          className={`h-11 ${fieldClass}`}
+                        />
+                        {uploadingPdf ? (
+                          <p className="text-xs text-neutral-500">Uploading PDF…</p>
+                        ) : null}
+                      </div>
+                    ) : (
+                      <Input
+                        type={field.type === "number" ? "number" : "text"}
+                        placeholder={
+                          field.type === "images" || field.type === "tags" || field.type === "highlights"
+                            ? "Separate values with commas"
+                            : field.placeholder
+                        }
+                        value={values[field.key] || ""}
+                        onChange={(event) => updateValue(field.key, event.target.value)}
+                        className={`h-11 ${fieldClass}`}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button
+                  onClick={handleSubmit}
+                  className="rounded-full bg-neutral-950 px-6 text-white hover:bg-neutral-800"
+                >
+                  <Save className="h-4 w-4" />
+                  Save locally
+                </Button>
+                <Button
+                  variant="outline"
+                  asChild
+                  className="rounded-full border-neutral-200 bg-white px-6 text-neutral-900 shadow-sm hover:bg-neutral-50"
+                >
+                  <Link href={taskConfig.route}>
+                    View {taskConfig.label}
+                    <Plus className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </main>
+      <Footer />
     </div>
   );
 }

@@ -2,76 +2,72 @@ import type { TaskKey } from '@/lib/site-config'
 
 export const siteContent = {
   navbar: {
-    tagline: 'Independent reading platform',
+    tagline: 'PDF + Profile platform',
   },
   footer: {
-    tagline: 'Stories, resources, and discoverable posts',
+    tagline: 'PDF + Profile platform',
   },
   hero: {
-    badge: 'Latest stories and visuals',
-    title: ['A thoughtful home for', 'stories, visuals, and discovery.'],
+    badge: 'PDF + profile platform',
+    title: ['Access professional', 'PDFs & expert profiles.'],
     description:
-      'Explore fresh articles, image-led posts, and discoverable content across the platform through a calmer and clearer browsing experience.',
+      'Browse curated documents and verified profiles in one calm, modern library. Built for teams who care about clarity, trust, and fast discovery.',
     primaryCta: {
-      label: 'Read latest stories',
-      href: '/articles',
+      label: 'Browse PDFs',
+      href: '/pdf',
     },
     secondaryCta: {
-      label: 'Explore visuals',
-      href: '/images',
+      label: 'View profiles',
+      href: '/profile',
     },
-    searchPlaceholder: 'Search stories, visuals, listings, and more',
+    searchPlaceholder: 'Search PDFs, profiles, and resources',
     focusLabel: 'Focus',
-    featureCardBadge: 'latest cover rotation',
-    featureCardTitle: 'Latest posts shape the visual identity of the homepage.',
-    featureCardDescription:
-      'Recent images and stories stay at the center of the experience without changing any core platform behavior.',
+    featureCardBadge: 'Featured spotlight',
+    featureCardTitle: 'New PDFs and standout profiles set the tone for the homepage.',
+    featureCardDescription: 'The hero card rotates through your latest uploads so visitors always see fresh, high-signal work first.',
   },
   home: {
     metadata: {
-      title: 'Stories, visuals, and discoverable content',
-      description:
-        'Explore articles, images, listings, and curated posts through a cleaner reading-first experience.',
-      openGraphTitle: 'Stories, visuals, and discoverable content',
-      openGraphDescription:
-        'Discover articles, visual posts, and connected content through a calmer reading-first experience.',
-      keywords: ['story platform', 'article site', 'visual content', 'content discovery'],
+      title: 'PDFs and professional profiles',
+      description: 'Download PDF resources and explore expert profiles on Youngerlifestyle.',
+      openGraphTitle: 'PDFs and professional profiles',
+      openGraphDescription: 'A focused library for documents and public profiles with a clean, modern interface.',
+      keywords: ['pdf library', 'professional profiles', 'downloads', 'resources', 'Youngerlifestyle'],
     },
     introBadge: 'About the platform',
-    introTitle: 'Built for reading, browsing, and connecting different kinds of content.',
+    introTitle: 'Built for documents and the people behind them.',
     introParagraphs: [
-      'This site brings together article-style reading, visual browsing, and structured discovery so visitors can move naturally between different content types.',
-      'Instead of separating stories, visuals, and supporting resources into disconnected surfaces, the platform keeps them connected in one place with consistent navigation and easier exploration.',
-      'Whether someone starts with a story, an image-led post, a listing, or a resource page, they can keep discovering related content without friction.',
+      'This site centers on downloadable PDFs and public profiles so visitors can evaluate resources and authors in the same flow.',
+      'Navigation stays minimal on purpose: fewer lanes, clearer hierarchy, and less noise than a mixed marketplace template.',
+      'Whether someone starts with a document or a profile, they can move into related material without losing context.',
     ],
     sideBadge: 'At a glance',
     sidePoints: [
-      'Reading-first homepage with stronger emphasis on stories and imagery.',
-      'Connected sections for articles, visuals, listings, and supporting resources.',
-      'Cleaner browsing rhythm designed to make exploration feel easier.',
-      'Lightweight interactions that keep the experience fast and readable.',
+      'Large-type hero with a featured spotlight card.',
+      'Horizontal category chips tuned for resource discovery.',
+      'Dedicated rows for recent PDFs and featured profiles.',
+      'Lightweight motion and high-contrast UI for readability.',
     ],
     primaryLink: {
-      label: 'Browse articles',
-      href: '/articles',
+      label: 'Open PDF library',
+      href: '/pdf',
     },
     secondaryLink: {
-      label: 'See visuals',
-      href: '/images',
+      label: 'Browse profiles',
+      href: '/profile',
     },
   },
   cta: {
     badge: 'Start exploring',
-    title: 'Explore articles, visuals, and resources through one connected experience.',
-    description:
-      'Move between articles, image-led posts, listings, and resources through one clearer and more connected visual system.',
+    title: 'Find the right PDF and the right person without tab overload.',
+    description: 'Search, preview, and save what matters—profiles and documents stay connected in one experience.',
     primaryCta: {
-      label: 'Get Started Free',
-      href: '/register',
+      label: 'Browse PDFs',
+      href: '/pdf',
     },
     secondaryCta: {
-      label: 'Contact Sales',
-      href: '/contact',
+      label: 'View profiles',
+      href: '/profile',
     },
   },
   taskSectionHeading: 'Latest {label}',
@@ -81,31 +77,31 @@ export const siteContent = {
 export const taskPageMetadata: Record<Exclude<TaskKey, 'comment' | 'org' | 'social'>, { title: string; description: string }> = {
   article: {
     title: 'Articles and stories',
-    description: 'Read articles, stories, guides, and long-form posts across topics and interests.',
+    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
   listing: {
     title: 'Listings and discoverable pages',
-    description: 'Explore listings, services, brands, and structured pages organized for easier browsing.',
+    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
   classified: {
     title: 'Classifieds and announcements',
-    description: 'Browse classifieds, offers, notices, and time-sensitive posts across categories.',
+    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
   image: {
     title: 'Images and visual posts',
-    description: 'Explore image-led posts, galleries, and visual stories from across the platform.',
+    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
   profile: {
     title: 'Profiles and public pages',
-    description: 'Discover public profiles, brand pages, and identity-focused posts in one place.',
+    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
   sbm: {
     title: 'Curated links and saved resources',
-    description: 'Browse useful links, saved references, and curated resources organized for discovery.',
+    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
   pdf: {
     title: 'PDFs and downloadable resources',
-    description: 'Open reports, documents, and downloadable resources shared across the platform.',
+    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
 }
 
@@ -173,9 +169,9 @@ export const taskIntroCopy: Record<
       'Browse profiles to understand people and brands more clearly, then continue into related content from the same source.',
     ],
     links: [
-      { label: 'Open listings', href: '/listings' },
-      { label: 'Read articles', href: '/articles' },
-      { label: 'Browse images', href: '/images' },
+      { label: 'Browse PDFs', href: '/pdf' },
+      { label: 'Search resources', href: '/search' },
+      { label: 'Contact', href: '/contact' },
     ],
   },
   sbm: {
@@ -199,9 +195,9 @@ export const taskIntroCopy: Record<
       'Browse by category to find relevant files quickly, then continue into related sections when you want more context.',
     ],
     links: [
-      { label: 'Read articles', href: '/articles' },
-      { label: 'See listings', href: '/listings' },
       { label: 'Explore profiles', href: '/profile' },
+      { label: 'Help center', href: '/help' },
+      { label: 'Search', href: '/search' },
     ],
   },
   social: {
