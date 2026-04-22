@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FileText, Building2, LayoutGrid, Tag, Github, Twitter, Linkedin, Image as ImageIcon, User, ArrowRight, Sparkles } from 'lucide-react'
+import { FileText, Building2, LayoutGrid, Tag, Github, Twitter, Linkedin, Image as ImageIcon, User, ArrowRight } from 'lucide-react'
 import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
 import { siteContent } from '@/config/site.content'
 import { getFactoryState } from '@/design/factory/get-factory-state'
@@ -26,14 +26,12 @@ const footerLinks = {
   })),
   company: [
     { name: 'About', href: '/about' },
-    { name: 'Team', href: '/team' },
     { name: 'Careers', href: '/careers' },
-    { name: 'Blog', href: '/blog' },
     { name: 'Press', href: '/press' },
+    { name: 'Contact', href: '/contact' },
   ],
   resources: [
     { name: 'Help Center', href: '/help' },
-    { name: 'Community', href: '/community' },
     { name: 'Developers', href: '/developers' },
     { name: 'Status', href: '/status' },
   ],
@@ -140,32 +138,87 @@ export function Footer() {
 
   if (recipe.footer === 'editorial-footer') {
     return (
-      <footer className="border-t border-[#dbc6b6] bg-[linear-gradient(180deg,#fff9f0_0%,#fff1df_100%)] text-[#2f1d16]">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr_0.9fr]">
+      <footer className="relative overflow-hidden border-t border-neutral-800 bg-neutral-950 text-neutral-300">
+        <div className="pointer-events-none absolute inset-0 flex items-end justify-center pb-4 select-none">
+          <span className="translate-y-6 text-[min(26vw,12rem)] font-bold uppercase leading-none tracking-tight text-white/[0.035] sm:text-[min(22vw,11rem)]">
+            {SITE_CONFIG.name}
+          </span>
+        </div>
+        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.25fr_1fr_1fr_1fr]">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#dbc6b6] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#72594a]">
-                <Sparkles className="h-3.5 w-3.5" />
-                Editorial desk
-              </div>
-              <h3 className="mt-5 text-3xl font-semibold tracking-[-0.04em]">{SITE_CONFIG.name}</h3>
-              <p className="mt-4 max-w-md text-sm leading-7 text-[#72594a]">{SITE_CONFIG.description}</p>
+              <Link href="/" className="inline-flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 p-[2px] shadow-lg ring-1 ring-white/10">
+                  <div className="flex h-full w-full items-center justify-center rounded-full bg-neutral-950 p-1">
+                    <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="32" height="32" className="h-8 w-8 rounded-full object-contain" />
+                  </div>
+                </div>
+                <span className="font-sans text-lg font-bold text-white">{SITE_CONFIG.name}</span>
+              </Link>
+              <p className="mt-5 max-w-sm text-sm leading-relaxed text-neutral-400">{SITE_CONFIG.description}</p>
             </div>
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8b6d5a]">Sections</h4>
-              <ul className="mt-4 space-y-3 text-sm">
+              <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Platform</h4>
+              <ul className="mt-5 space-y-3 text-sm">
                 {footerLinks.platform.map((item: any) => (
-                  <li key={item.name}><Link href={item.href} className="hover:text-[#2f1d16]">{item.name}</Link></li>
+                  <li key={item.name}>
+                    <Link href={item.href} className="text-neutral-300 transition hover:text-white">
+                      {item.name}
+                    </Link>
+                  </li>
                 ))}
               </ul>
             </div>
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8b6d5a]">Company</h4>
-              <ul className="mt-4 space-y-3 text-sm">
+              <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Support</h4>
+              <ul className="mt-5 space-y-3 text-sm">
+                {footerLinks.resources.map((item) => (
+                  <li key={item.name}>
+                    <Link href={item.href} className="text-neutral-300 transition hover:text-white">
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link href="/contact" className="text-neutral-300 transition hover:text-white">
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Company</h4>
+              <ul className="mt-5 space-y-3 text-sm">
                 {footerLinks.company.map((item) => (
-                  <li key={item.name}><Link href={item.href} className="hover:text-[#2f1d16]">{item.name}</Link></li>
+                  <li key={item.name}>
+                    <Link href={item.href} className="text-neutral-300 transition hover:text-white">
+                      {item.name}
+                    </Link>
+                  </li>
                 ))}
               </ul>
+            </div>
+          </div>
+          <div className="mt-14 flex flex-col gap-6 border-t border-neutral-800 pt-8 text-sm text-neutral-500 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+            <p>
+              &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6">
+              <span className="text-neutral-400">English (US)</span>
+              <span className="text-neutral-400">USD</span>
+            </div>
+            <div className="flex gap-3">
+              {socialLinks.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-700 bg-neutral-900 text-neutral-300 transition hover:border-neutral-500 hover:text-white"
+                >
+                  <item.icon className="h-4 w-4" />
+                </Link>
+              ))}
             </div>
           </div>
         </div>

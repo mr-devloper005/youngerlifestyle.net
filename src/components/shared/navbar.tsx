@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Search, Menu, X, User, FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, ChevronRight, Sparkles, MapPin, Plus } from 'lucide-react'
+import { Search, Menu, X, User, FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, ChevronRight, Sparkles, MapPin, Globe } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/lib/auth-context'
 import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
@@ -41,12 +41,12 @@ const variantClasses = {
     mobile: 'border-t border-slate-200/70 bg-white/95',
   },
   'editorial-bar': {
-    shell: 'border-b border-[#d7c4b3] bg-[#fff7ee]/90 text-[#2f1d16] backdrop-blur-xl',
-    logo: 'rounded-full border border-[#dbc6b6] bg-white shadow-sm',
-    active: 'bg-[#2f1d16] text-[#fff4e4]',
-    idle: 'text-[#72594a] hover:bg-[#f2e5d4] hover:text-[#2f1d16]',
-    cta: 'rounded-full bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
-    mobile: 'border-t border-[#dbc6b6] bg-[#fff7ee]',
+    shell: 'border-b border-neutral-200/90 bg-white/95 text-neutral-950 backdrop-blur-xl',
+    logo: 'rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 p-[2px] shadow-sm ring-1 ring-black/5',
+    active: 'bg-neutral-950 text-white',
+    idle: 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950',
+    cta: 'rounded-full bg-neutral-950 text-white hover:bg-neutral-800',
+    mobile: 'border-t border-neutral-200 bg-white',
   },
   'floating-bar': {
     shell: 'border-b border-transparent bg-transparent text-white',
@@ -97,7 +97,17 @@ export function Navbar() {
   const { isAuthenticated } = useAuth()
   const { recipe } = getFactoryState()
 
-  const navigation = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'profile'), [])
+  const navigation = useMemo(
+    () =>
+      SITE_CONFIG.tasks
+        .filter((task) => task.enabled)
+        .sort((a, b) => {
+          const rank = (key: string) => (key === 'pdf' ? 0 : key === 'profile' ? 1 : 2)
+          const d = rank(a.key) - rank(b.key)
+          return d !== 0 ? d : a.label.localeCompare(b.label)
+        }),
+    [],
+  )
   const primaryNavigation = navigation.slice(0, 5)
   const mobileNavigation = navigation.map((task) => ({
     name: task.label,
@@ -139,10 +149,10 @@ export function Navbar() {
           <div className="hidden min-w-0 flex-1 items-center justify-center lg:flex">
             <div className={cn('flex w-full max-w-xl items-center gap-3 rounded-full px-4 py-3', palette.search)}>
               <Search className="h-4 w-4" />
-              <span className="text-sm">Find businesses, spaces, and local services</span>
+              <span className="text-sm">Search PDFs, profiles, and downloadable resources</span>
               <div className="ml-auto hidden items-center gap-1 text-xs opacity-75 md:flex">
                 <MapPin className="h-3.5 w-3.5" />
-                Local discovery
+                Resource hub
               </div>
             </div>
           </div>
@@ -159,14 +169,11 @@ export function Navbar() {
               <NavbarAuthControls />
             ) : (
               <div className="hidden items-center gap-2 md:flex">
-                <Button variant="ghost" size="sm" asChild className="rounded-full px-4">
-                  <Link href="/login">Sign In</Link>
+                <Button variant="ghost" size="sm" asChild className="rounded-full px-4 text-neutral-700">
+                  <Link href="/search">Search</Link>
                 </Button>
-                <Button size="sm" asChild className={cn('rounded-full', palette.cta)}>
-                  <Link href="/register">
-                    <Plus className="mr-1 h-4 w-4" />
-                    Add Listing
-                  </Link>
+                <Button size="sm" asChild className={cn('rounded-full font-semibold', palette.cta)}>
+                  <Link href="/login">Login</Link>
                 </Button>
               </div>
             )}
@@ -182,7 +189,7 @@ export function Navbar() {
             <div className="space-y-2 px-4 py-4">
               <div className={cn('mb-3 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium', palette.search)}>
                 <Search className="h-4 w-4" />
-                Find businesses, spaces, and services
+                Search PDFs and profiles
               </div>
               {mobileNavigation.map((item) => {
                 const isActive = pathname.startsWith(item.href)
@@ -210,27 +217,43 @@ export function Navbar() {
       <nav className={cn('mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8', isFloating ? 'h-24 pt-4' : 'h-20')}>
         <div className="flex min-w-0 flex-1 items-center gap-4 lg:gap-7">
           <Link href="/" className="flex shrink-0 items-center gap-3 whitespace-nowrap pr-2">
-            <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', style.logo)}>
-              <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
-            </div>
+            {isEditorial ? (
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 p-[2px] shadow-sm ring-1 ring-black/5">
+                <div className="flex h-full w-full items-center justify-center rounded-full bg-white p-1">
+                  <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="36" height="36" className="h-8 w-8 rounded-full object-contain" />
+                </div>
+              </div>
+            ) : (
+              <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', style.logo)}>
+                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+              </div>
+            )}
             <div className="min-w-0 hidden sm:block">
-              <span className="block truncate text-xl font-semibold">{SITE_CONFIG.name}</span>
-              <span className="hidden text-[10px] uppercase tracking-[0.28em] opacity-70 sm:block">{siteContent.navbar.tagline}</span>
+              <span className="block truncate font-sans text-xl font-bold tracking-tight text-neutral-950">{SITE_CONFIG.name}</span>
+              <span className="hidden text-[10px] font-medium uppercase tracking-[0.22em] text-neutral-500 sm:block">{siteContent.navbar.tagline}</span>
             </div>
           </Link>
 
           {isEditorial ? (
-            <div className="hidden min-w-0 flex-1 items-center gap-4 xl:flex">
-              <div className="h-px flex-1 bg-[#d8c8bb]" />
+            <div className="hidden min-w-0 flex-1 items-center justify-center gap-8 xl:flex">
               {primaryNavigation.map((task) => {
                 const isActive = pathname.startsWith(task.route)
                 return (
-                  <Link key={task.key} href={task.route} className={cn('text-sm font-semibold uppercase tracking-[0.18em] transition-colors', isActive ? 'text-[#2f1d16]' : 'text-[#7b6254] hover:text-[#2f1d16]')}>
+                  <Link
+                    key={task.key}
+                    href={task.route}
+                    className={cn(
+                      'text-sm font-semibold transition-colors',
+                      isActive ? 'text-neutral-950' : 'text-neutral-600 hover:text-neutral-950',
+                    )}
+                  >
                     {task.label}
                   </Link>
                 )
               })}
-              <div className="h-px flex-1 bg-[#d8c8bb]" />
+              <Link href="/search" className="text-sm font-semibold text-neutral-600 transition hover:text-neutral-950">
+                Resources
+              </Link>
             </div>
           ) : isFloating ? (
             <div className="hidden min-w-0 flex-1 items-center gap-2 xl:flex">
@@ -280,28 +303,51 @@ export function Navbar() {
             </Link>
           ) : null}
 
-          <Button variant="ghost" size="icon" asChild className="hidden rounded-full md:flex">
-            <Link href="/search">
-              <Search className="h-5 w-5" />
-              <span className="sr-only">Search</span>
-            </Link>
-          </Button>
+          {!isEditorial ? (
+            <Button variant="ghost" size="icon" asChild className="hidden rounded-full md:flex">
+              <Link href="/search">
+                <Search className="h-5 w-5" />
+                <span className="sr-only">Search</span>
+              </Link>
+            </Button>
+          ) : null}
 
           {isAuthenticated ? (
             <NavbarAuthControls />
+          ) : isEditorial ? (
+            <div className="hidden items-center gap-2 md:flex">
+              <Button variant="ghost" size="icon" asChild className="rounded-full text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">
+                <Link href="/search">
+                  <Globe className="h-5 w-5" />
+                  <span className="sr-only">Language and region</span>
+                </Link>
+              </Button>
+              <Button size="sm" asChild className={cn('h-10 rounded-full px-6 text-sm font-semibold shadow-sm', style.cta)}>
+                <Link href="/login">Login</Link>
+              </Button>
+            </div>
           ) : (
             <div className="hidden items-center gap-2 md:flex">
               <Button variant="ghost" size="sm" asChild className="rounded-full px-4">
                 <Link href="/login">Sign In</Link>
               </Button>
               <Button size="sm" asChild className={style.cta}>
-                <Link href="/register">{isEditorial ? 'Subscribe' : isUtility ? 'Post Now' : 'Get Started'}</Link>
+                <Link href="/register">{isUtility ? 'Post Now' : 'Get Started'}</Link>
               </Button>
             </div>
           )}
 
-          <Button variant="ghost" size="icon" className="rounded-full lg:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          <Button variant="ghost" size="icon" className="rounded-full text-neutral-700 lg:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Menu">
+            {isMobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : isEditorial ? (
+              <span className="flex h-5 w-5 flex-col items-center justify-center gap-1.5" aria-hidden>
+                <span className="h-0.5 w-5 rounded-full bg-current" />
+                <span className="h-0.5 w-4 rounded-full bg-current" />
+              </span>
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </Button>
         </div>
       </nav>

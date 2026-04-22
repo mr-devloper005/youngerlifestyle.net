@@ -57,7 +57,7 @@ export const siteTaskDefinitions = [
   },
   {
     key: 'pdf',
-    label: 'PDF Library',
+    label: 'PDFs',
     route: '/pdf',
     description: 'PDF resources and downloads.',
     contentType: 'pdf',

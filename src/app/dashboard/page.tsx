@@ -256,16 +256,17 @@ export default function DashboardPage() {
   )
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white text-neutral-950">
       <NavbarShell />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-            <p className="text-muted-foreground mt-1">
-              Welcome back, {user?.name || "User"}! Here's what's happening.
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Workspace</p>
+            <h1 className="mt-1 text-3xl font-bold tracking-tight text-neutral-950">Dashboard</h1>
+            <p className="mt-1 text-neutral-600">
+              Welcome back, {user?.name || "User"}. Here is a snapshot of your activity.
             </p>
           </div>
           <div className="flex gap-3">

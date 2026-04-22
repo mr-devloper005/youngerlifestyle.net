@@ -7,50 +7,64 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { mockTeamMembers } from "@/data/mock-data";
 import { SITE_CONFIG } from "@/lib/site-config";
 
+const card = "rounded-[1.25rem] border border-neutral-200 bg-white shadow-sm";
+
 const highlights = [
-  { label: "Creators onboarded", value: "12k+" },
-  { label: "Bookmarks shared", value: "180k" },
-  { label: "Listings published", value: "8.6k" },
+  { label: "PDFs indexed", value: "480+" },
+  { label: "Active profiles", value: "120+" },
+  { label: "Monthly opens", value: "24k" },
 ];
 
 const values = [
-  { title: "Curated by people", description: "We believe trusted recommendations beat endless feeds." },
-  { title: "Designed for focus", description: "Clear, calm UI helps you find the next best resource fast." },
-  { title: "Built to share", description: "Collections make collaboration and knowledge flow effortless." },
+  {
+    title: "Documents first",
+    description: "We treat PDFs as first-class objects—clear previews, honest metadata, and predictable downloads.",
+  },
+  {
+    title: "People in the loop",
+    description: "Profiles explain who published each resource so teams can trust the source, not just the file name.",
+  },
+  {
+    title: "Calm by default",
+    description: "No cluttered marketplace chrome—just white space, strong type, and navigation that stays out of your way.",
+  },
 ];
 
 export default function AboutPage() {
   return (
     <PageShell
+      eyebrow="About"
       title={`About ${SITE_CONFIG.name}`}
-      description={`${SITE_CONFIG.name} is a modern platform for creators, communities, and curated business discovery.`}
+      description={`${SITE_CONFIG.name} is a focused library for PDFs and professional profiles—built for teams who outgrew generic portals and noisy feeds.`}
       actions={
         <>
-          <Button variant="outline" asChild>
-            <Link href="/team">Meet the Team</Link>
+          <Button variant="outline" asChild className="rounded-full border-neutral-200 bg-white px-6 font-semibold text-neutral-900 hover:bg-neutral-50">
+            <Link href="/team">Meet the team</Link>
           </Button>
-          <Button asChild>
-            <Link href="/contact">Contact Us</Link>
+          <Button asChild className="rounded-full bg-neutral-950 px-6 font-semibold text-white hover:bg-neutral-800">
+            <Link href="/contact">Contact us</Link>
           </Button>
         </>
       }
     >
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <Card className="border-border bg-card">
-          <CardContent className="space-y-4 p-6">
-            <Badge variant="secondary">Our Story</Badge>
-            <h2 className="text-2xl font-semibold text-foreground">
-              A single home for knowledge, discovery, and community.
+      <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <Card className={card}>
+          <CardContent className="space-y-5 p-7 sm:p-8">
+            <Badge className="rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-xs font-semibold text-neutral-700">
+              Our story
+            </Badge>
+            <h2 className="text-2xl font-bold tracking-tight text-neutral-950">
+              One surface for files and the humans behind them.
             </h2>
-            <p className="text-sm text-muted-foreground">
-              {SITE_CONFIG.name} brings together publishing, listings, and social bookmarking so teams can move faster
-              and keep their best resources close.
+            <p className="text-sm leading-relaxed text-neutral-600">
+              We built this platform for operators, educators, and founders who need a credible place to host documents
+              and introduce the people responsible for them—without mixing in unrelated product lanes.
             </p>
             <div className="grid gap-4 sm:grid-cols-3">
               {highlights.map((item) => (
-                <div key={item.label} className="rounded-lg border border-border bg-secondary/40 p-4">
-                  <div className="text-2xl font-semibold text-foreground">{item.value}</div>
-                  <div className="text-xs text-muted-foreground">{item.label}</div>
+                <div key={item.label} className="rounded-[1rem] border border-neutral-200 bg-neutral-50 p-4">
+                  <div className="text-2xl font-bold text-neutral-950">{item.value}</div>
+                  <div className="mt-1 text-xs font-medium text-neutral-500">{item.label}</div>
                 </div>
               ))}
             </div>
@@ -58,35 +72,39 @@ export default function AboutPage() {
         </Card>
         <div className="space-y-4">
           {values.map((value) => (
-            <Card key={value.title} className="border-border bg-card">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-foreground">{value.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{value.description}</p>
+            <Card key={value.title} className={card}>
+              <CardContent className="p-6 sm:p-7">
+                <h3 className="text-lg font-bold text-neutral-950">{value.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-600">{value.description}</p>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
-        {mockTeamMembers.map((member) => (
-          <Card key={member.id} className="border-border bg-card transition-transform hover:-translate-y-1">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3">
-                <Avatar className="h-12 w-12">
-                  <AvatarImage src={member.avatar} alt={member.name} />
-                  <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{member.name}</p>
-                  <p className="text-xs text-muted-foreground">{member.role}</p>
+      <div className="mt-14">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Leadership</p>
+        <h2 className="mt-2 text-2xl font-bold tracking-tight text-neutral-950">People behind the product</h2>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          {mockTeamMembers.map((member) => (
+            <Card key={member.id} className={`${card} transition hover:-translate-y-0.5 hover:shadow-md`}>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3">
+                  <Avatar className="h-12 w-12 border border-neutral-200">
+                    <AvatarImage src={member.avatar} alt={member.name} />
+                    <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm font-semibold text-neutral-950">{member.name}</p>
+                    <p className="text-xs text-neutral-500">{member.role}</p>
+                  </div>
                 </div>
-              </div>
-              <p className="mt-3 text-sm text-muted-foreground">{member.bio}</p>
-              <p className="mt-3 text-xs text-muted-foreground">{member.location}</p>
-            </CardContent>
-          </Card>
-        ))}
+                <p className="mt-3 text-sm leading-relaxed text-neutral-600">{member.bio}</p>
+                <p className="mt-3 text-xs text-neutral-500">{member.location}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </PageShell>
   );
