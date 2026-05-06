@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Calendar, FileText, Info, Link2, ListChecks, Share2, Tag } from "lucide-react";
+import { FileText, Info, Link2, ListChecks, Share2, Tag } from "lucide-react";
 
 import { Footer } from "@/components/shared/footer";
 import { NavbarShell } from "@/components/shared/navbar-shell";
 import { TaskPostCard } from "@/components/shared/task-post-card";
 import { ContentImage } from "@/components/shared/content-image";
 import { SchemaJsonLd } from "@/components/seo/schema-jsonld";
+import { ShareButton } from "@/components/ui/share-button";
 import { buildPostMetadata, buildTaskMetadata } from "@/lib/seo";
 import { buildPostUrl, fetchTaskPostBySlug, fetchTaskPosts } from "@/lib/task-data";
 import { SITE_CONFIG } from "@/lib/site-config";
@@ -25,16 +26,6 @@ function excerptFromContent(content: Record<string, unknown>, summary: string | 
   if (!raw) return "";
   const plain = /<[a-z]/i.test(raw) ? stripTags(raw) : raw;
   return plain.length > max ? `${plain.slice(0, max).trim()}…` : plain;
-}
-
-function profileCover(post: SitePost) {
-  const media = Array.isArray(post.media) ? post.media : [];
-  const u = media.find((m) => typeof m?.url === "string")?.url;
-  const c = post.content && typeof post.content === "object" ? (post.content as Record<string, unknown>) : {};
-  const images = Array.isArray(c.images) ? c.images : [];
-  const img0 = typeof images[0] === "string" ? images[0] : null;
-  const logo = typeof c.logo === "string" ? c.logo : null;
-  return u || img0 || logo || "/placeholder.svg?height=400&width=400";
 }
 
 export async function generateStaticParams() {
@@ -81,6 +72,7 @@ export default async function PdfDetailPage({ params }: { params: Promise<{ slug
 
   const viewerUrl = `${fileUrl}#toolbar=0&navpanes=0&scrollbar=0`;
   const baseUrl = SITE_CONFIG.baseUrl.replace(/\/$/, "");
+  const currentUrl = `${baseUrl}/pdf/${post.slug}`;
   const category = typeof contentAny.category === "string" ? contentAny.category : "";
   const fileSize = typeof contentAny.fileSize === "string" ? contentAny.fileSize : "";
   const pages = typeof contentAny.pages === "string" || typeof contentAny.pages === "number" ? String(contentAny.pages) : "";
@@ -103,13 +95,6 @@ export default async function PdfDetailPage({ params }: { params: Promise<{ slug
       return itemCategory === category;
     })
     .slice(0, 3);
-
-  const publishers = (await fetchTaskPosts("profile", 4)).slice(0, 3);
-
-  const published =
-    typeof post.publishedAt === "string"
-      ? new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
-      : null;
 
   const breadcrumbData = {
     "@context": "https://schema.org",
@@ -144,12 +129,6 @@ export default async function PdfDetailPage({ params }: { params: Promise<{ slug
                   <span className="inline-flex items-center gap-1 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs font-semibold text-neutral-800">
                     <Tag className="h-3.5 w-3.5 text-violet-500" />
                     {category}
-                  </span>
-                ) : null}
-                {published ? (
-                  <span className="inline-flex items-center gap-1 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-600">
-                    <Calendar className="h-3.5 w-3.5" />
-                    {published}
                   </span>
                 ) : null}
               </div>
@@ -215,6 +194,7 @@ export default async function PdfDetailPage({ params }: { params: Promise<{ slug
               >
                 Open in new tab
               </a>
+              <ShareButton url={currentUrl} title={post.title} />
               <Link
                 href="/search"
                 className="inline-flex items-center justify-center rounded-full border border-neutral-200 bg-white px-6 py-2.5 text-sm font-semibold text-neutral-900 hover:bg-neutral-50"
@@ -289,31 +269,7 @@ export default async function PdfDetailPage({ params }: { params: Promise<{ slug
               </ul>
             </div>
 
-            {publishers.length ? (
-              <div className="rounded-[1.25rem] border border-neutral-200 bg-neutral-50/90 p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">People behind the library</p>
-                <h3 className="mt-2 text-lg font-bold text-neutral-950">Featured profiles</h3>
-                <ul className="mt-4 space-y-4">
-                  {publishers.map((p) => (
-                    <li key={p.id}>
-                      <Link href={buildPostUrl("profile", p.slug)} className="group flex gap-3">
-                        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-neutral-200 bg-white">
-                          <ContentImage src={profileCover(p)} alt={p.title} fill className="object-cover" />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-sm font-semibold text-neutral-950 group-hover:underline">{p.title}</p>
-                          {p.summary ? <p className="line-clamp-2 text-xs text-neutral-600">{p.summary}</p> : null}
-                        </div>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/profile" className="mt-4 inline-block text-sm font-semibold text-neutral-950 underline-offset-4 hover:underline">
-                  Browse all profiles →
-                </Link>
-              </div>
-            ) : null}
-          </aside>
+                      </aside>
         </div>
       </main>
       <Footer />
