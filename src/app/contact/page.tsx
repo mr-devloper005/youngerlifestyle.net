@@ -11,11 +11,6 @@ const lanes = [
     body: 'Questions about uploads, previews, download links, or file replacements—send context and we will route it quickly.',
   },
   {
-    icon: User,
-    title: 'Profiles & verification',
-    body: 'Updates to bios, logos, outbound links, or how your public profile appears alongside resources.',
-  },
-  {
     icon: Mail,
     title: 'Partnerships',
     body: 'Licensing, co-marketing, or integrations where our library should surface alongside your product.',
@@ -36,7 +31,7 @@ export default function ContactPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Contact</p>
             <h1 className="mt-3 font-sans text-4xl font-bold tracking-[-0.04em] sm:text-5xl">We read every message with context in mind.</h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-600">
-              Tell us whether you are working with PDFs, profiles, or something cross-cutting—we keep routing tight so
+              Tell us whether you are working with PDFs or something cross-cutting—we keep routing tight so
               you are not bounced through unrelated queues.
             </p>
             <div className="mt-10 space-y-4">
@@ -49,9 +44,6 @@ export default function ContactPage() {
               ))}
             </div>
             <div className="mt-10 flex flex-wrap gap-6 text-sm text-neutral-600">
-              <span className="inline-flex items-center gap-2">
-                <Phone className="h-4 w-4" /> +1 (555) 014-2200
-              </span>
               <span className="inline-flex items-center gap-2">
                 <MapPin className="h-4 w-4" /> Remote-first, US business hours
               </span>
@@ -76,7 +68,7 @@ export default function ContactPage() {
               />
               <input
                 className="h-12 rounded-2xl border border-neutral-200 bg-white px-4 text-sm text-neutral-950 placeholder:text-neutral-400"
-                placeholder="Topic (e.g., PDF upload, profile edit)"
+                placeholder="Topic (e.g., PDF upload)"
               />
               <textarea
                 className="min-h-[168px] rounded-2xl border border-neutral-200 bg-white px-4 py-3 text-sm text-neutral-950 placeholder:text-neutral-400"

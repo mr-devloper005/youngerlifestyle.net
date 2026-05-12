@@ -1,10 +1,10 @@
 export const siteIdentity = {
   code: process.env.NEXT_PUBLIC_SITE_CODE || '1fwckn4ypf',
   name: process.env.NEXT_PUBLIC_SITE_NAME || 'Youngerlifestyle',
-  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'PDF + Profile platform',
+  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'PDF platform',
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    'A pdf + profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
+    'A PDF platform for Youngerlifestyle, built for clean discovery and structured publishing.',
   domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'youngerlifestyle.net',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://youngerlifestyle.net',
   ogImage: process.env.NEXT_PUBLIC_SITE_OG_IMAGE || '/og-default.png',

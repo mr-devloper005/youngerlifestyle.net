@@ -58,7 +58,7 @@ export function PdfProfileHome({ pdfPosts, profilePosts, primaryTask }: PdfProfi
   const profileRow = profilePosts.slice(0, 6)
 
   return (
-    <main className="bg-white text-neutral-950">
+    <main className="bg-white text-neutral-950" suppressHydrationWarning>
       <section className="border-b border-neutral-200/80">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
           <div className="grid items-stretch gap-12 lg:grid-cols-[1.05fr_0.95fr]">
@@ -79,12 +79,6 @@ export function PdfProfileHome({ pdfPosts, profilePosts, primaryTask }: PdfProfi
                 >
                   {siteContent.hero.primaryCta.label}
                   <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href={siteContent.hero.secondaryCta.href}
-                  className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-6 py-3 text-sm font-semibold text-neutral-900 transition hover:bg-neutral-50"
-                >
-                  {siteContent.hero.secondaryCta.label}
                 </Link>
               </div>
             </div>
@@ -123,7 +117,7 @@ export function PdfProfileHome({ pdfPosts, profilePosts, primaryTask }: PdfProfi
               ) : (
                 <div className="flex flex-1 flex-col items-center justify-center gap-4 p-10 text-center">
                   <FileText className="h-12 w-12 text-neutral-400" />
-                  <p className="max-w-xs text-sm text-neutral-600">Publish PDFs and profiles to populate this spotlight.</p>
+                  <p className="max-w-xs text-sm text-neutral-600">Publish PDFs to populate this spotlight.</p>
                   <Link href="/pdf" className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800">
                     Browse PDF library
                   </Link>
@@ -167,18 +161,6 @@ export function PdfProfileHome({ pdfPosts, profilePosts, primaryTask }: PdfProfi
             </summary>
             <p className="mt-4 max-w-2xl pl-10 text-sm leading-relaxed text-neutral-600">
               Downloadable documents stay organized by category, with clear previews and metadata so teams can find the right file without digging through unrelated content.
-            </p>
-          </details>
-          <details className="group px-2 py-5 sm:px-4">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-neutral-950 [&::-webkit-details-marker]:hidden">
-              <span className="flex items-baseline gap-3">
-                <span className="text-sm text-neutral-400">02</span>
-                <span>Professional profiles</span>
-              </span>
-              <span className="text-neutral-400 transition group-open:rotate-180">⌄</span>
-            </summary>
-            <p className="mt-4 max-w-2xl pl-10 text-sm leading-relaxed text-neutral-600">
-              Every profile highlights expertise, credentials, and related PDFs so visitors can trust who published each resource.
             </p>
           </details>
         </div>
@@ -229,56 +211,6 @@ export function PdfProfileHome({ pdfPosts, profilePosts, primaryTask }: PdfProfi
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">People</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-[-0.03em] text-neutral-950">Featured profiles</h2>
-          </div>
-          <Link href="/profile" className="text-sm font-semibold text-neutral-950 underline-offset-4 hover:underline">
-            See all profiles
-          </Link>
-        </div>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {(profileRow.length ? profileRow : [null, null]).map((post, i) =>
-            post ? (
-              <Link
-                key={post.id}
-                href={getTaskHref(resolveTaskKey(postTask(post), 'profile'), post.slug)}
-                className="group overflow-hidden rounded-[1.5rem] border border-neutral-200 bg-white shadow-sm transition hover:shadow-md"
-              >
-                <div className="relative aspect-[4/3] w-full overflow-hidden">
-                  <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover transition duration-500 group-hover:scale-[1.03]" />
-                </div>
-                <div className="flex items-start justify-between gap-3 p-5">
-                  <div className="min-w-0">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">{getPostMeta(post).category || 'Profile'}</p>
-                    <h3 className="mt-2 text-lg font-bold text-neutral-950">{post.title}</h3>
-                    <p className="mt-2 line-clamp-2 text-sm text-neutral-600">{post.summary || 'Professional profile and published work.'}</p>
-                  </div>
-                  <User className="mt-1 h-5 w-5 shrink-0 text-neutral-400" />
-                </div>
-              </Link>
-            ) : (
-              <div key={`p-${i}`} className="flex min-h-[200px] flex-col justify-center rounded-[1.5rem] border border-dashed border-neutral-300 bg-neutral-50/50 p-6 text-center">
-                <p className="text-sm text-neutral-600">Profile cards appear when contributors are published.</p>
-              </div>
-            ),
-          )}
-        </div>
-
-        {primaryTask ? (
-          <div className="mt-14 flex justify-center">
-            <Link
-              href={primaryTask.route}
-              className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-6 py-3 text-sm font-semibold text-neutral-900 shadow-sm hover:bg-neutral-50"
-            >
-              Open {primaryTask.label}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        ) : null}
-      </section>
     </main>
   )
 }

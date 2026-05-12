@@ -5,69 +5,57 @@ export const siteContent = {
     tagline: '',
   },
   footer: {
-    tagline: 'PDF + Profile platform',
+    tagline: 'PDF platform',
   },
   hero: {
-    badge: 'PDF + profile platform',
-    title: ['Access professional', 'PDFs & expert profiles.'],
+    badge: 'PDF platform',
+    title: ['Access professional', 'PDFs.'],
     description:
-      'Browse curated documents and verified profiles in one calm, modern library. Built for teams who care about clarity, trust, and fast discovery.',
+      'Browse curated documents in one calm, modern library. Built for teams who care about clarity, trust, and fast discovery.',
     primaryCta: {
       label: 'Browse PDFs',
       href: '/pdf',
     },
-    secondaryCta: {
-      label: 'View profiles',
-      href: '/profile',
-    },
-    searchPlaceholder: 'Search PDFs, profiles, and resources',
+    searchPlaceholder: 'Search PDFs and resources',
     focusLabel: 'Focus',
     featureCardBadge: 'Featured spotlight',
-    featureCardTitle: 'New PDFs and standout profiles set the tone for the homepage.',
+    featureCardTitle: 'New PDFs set the tone for the homepage.',
     featureCardDescription: 'The hero card rotates through your latest uploads so visitors always see fresh, high-signal work first.',
   },
   home: {
     metadata: {
-      title: 'PDFs and professional profiles',
-      description: 'Download PDF resources and explore expert profiles on Youngerlifestyle.',
-      openGraphTitle: 'PDFs and professional profiles',
-      openGraphDescription: 'A focused library for documents and public profiles with a clean, modern interface.',
-      keywords: ['pdf library', 'professional profiles', 'downloads', 'resources', 'Youngerlifestyle'],
+      title: 'PDFs and downloadable resources',
+      description: 'Download PDF resources on Youngerlifestyle.',
+      openGraphTitle: 'PDFs and downloadable resources',
+      openGraphDescription: 'A focused library for documents with a clean, modern interface.',
+      keywords: ['pdf library', 'downloads', 'resources', 'Youngerlifestyle'],
     },
     introBadge: 'About the platform',
-    introTitle: 'Built for documents and the people behind them.',
+    introTitle: 'Built for documents and resources.',
     introParagraphs: [
-      'This site centers on downloadable PDFs and public profiles so visitors can evaluate resources and authors in the same flow.',
+      'This site centers on downloadable PDFs so visitors can evaluate resources in one flow.',
       'Navigation stays minimal on purpose: fewer lanes, clearer hierarchy, and less noise than a mixed marketplace template.',
-      'Whether someone starts with a document or a profile, they can move into related material without losing context.',
+      'Browse documents and move into related material without losing context.',
     ],
     sideBadge: 'At a glance',
     sidePoints: [
       'Large-type hero with a featured spotlight card.',
       'Horizontal category chips tuned for resource discovery.',
-      'Dedicated rows for recent PDFs and featured profiles.',
+      'Dedicated rows for recent PDFs.',
       'Lightweight motion and high-contrast UI for readability.',
     ],
     primaryLink: {
       label: 'Open PDF library',
       href: '/pdf',
     },
-    secondaryLink: {
-      label: 'Browse profiles',
-      href: '/profile',
-    },
   },
   cta: {
     badge: 'Start exploring',
-    title: 'Find the right PDF and the right person without tab overload.',
-    description: 'Search, preview, and save what matters—profiles and documents stay connected in one experience.',
+    title: 'Find the right PDF without tab overload.',
+    description: 'Search, preview, and save what matters—documents stay organized in one experience.',
     primaryCta: {
       label: 'Browse PDFs',
       href: '/pdf',
-    },
-    secondaryCta: {
-      label: 'View profiles',
-      href: '/profile',
     },
   },
   taskSectionHeading: 'Latest {label}',
@@ -77,31 +65,31 @@ export const siteContent = {
 export const taskPageMetadata: Record<Exclude<TaskKey, 'comment' | 'org' | 'social'>, { title: string; description: string }> = {
   article: {
     title: 'Articles and stories',
-    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
+    description: 'A PDF platform for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
   listing: {
     title: 'Listings and discoverable pages',
-    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
+    description: 'A PDF platform for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
   classified: {
     title: 'Classifieds and announcements',
-    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
+    description: 'A PDF platform for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
   image: {
     title: 'Images and visual posts',
-    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
+    description: 'A PDF platform for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
   profile: {
     title: 'Profiles and public pages',
-    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
+    description: 'A PDF platform for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
   sbm: {
     title: 'Curated links and saved resources',
-    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
+    description: 'A PDF platform for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
   pdf: {
     title: 'PDFs and downloadable resources',
-    description: 'A PDF + Profile site for Youngerlifestyle, built for clean discovery and structured publishing.',
+    description: 'A PDF platform for Youngerlifestyle, built for clean discovery and structured publishing.',
   },
 }
 
@@ -119,7 +107,6 @@ export const taskIntroCopy: Record<
     links: [
       { label: 'Read articles', href: '/articles' },
       { label: 'Explore classifieds', href: '/classifieds' },
-      { label: 'View profiles', href: '/profile' },
     ],
   },
   article: {
@@ -139,13 +126,12 @@ export const taskIntroCopy: Record<
     title: 'Classifieds, offers, and timely updates',
     paragraphs: [
       'Classified posts help surface offers, notices, deals, and time-sensitive opportunities in a faster-scanning format.',
-      'They work well alongside articles, listings, and profiles, making it easier to connect short-term posts with more structured content.',
+      'They work well alongside articles and listings, making it easier to connect short-term posts with more structured content.',
       'Browse by category to find announcements quickly, then continue into related sections when you need more detail.',
     ],
     links: [
       { label: 'Business listings', href: '/listings' },
       { label: 'Read articles', href: '/articles' },
-      { label: 'View profiles', href: '/profile' },
     ],
   },
   image: {
@@ -191,11 +177,10 @@ export const taskIntroCopy: Record<
     title: 'PDFs, documents, and downloadable files',
     paragraphs: [
       'The PDF library hosts reports, guides, downloadable files, and longer-form document resources that support reading and discovery.',
-      'These resources work alongside stories, listings, and profiles, helping document-style content stay connected to the rest of the platform.',
+      'These resources work alongside stories and listings, helping document-style content stay connected to the rest of the platform.',
       'Browse by category to find relevant files quickly, then continue into related sections when you want more context.',
     ],
     links: [
-      { label: 'Explore profiles', href: '/profile' },
       { label: 'Help center', href: '/help' },
       { label: 'Search', href: '/search' },
     ],
