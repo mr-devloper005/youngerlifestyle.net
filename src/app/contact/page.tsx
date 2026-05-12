@@ -1,90 +1,56 @@
-import { FileText, Mail, MapPin, Phone, Sparkles, User } from 'lucide-react'
-import { NavbarShell } from '@/components/shared/navbar-shell'
-import { Footer } from '@/components/shared/footer'
-import { SITE_CONFIG } from '@/lib/site-config'
-import { CONTACT_PAGE_OVERRIDE_ENABLED, ContactPageOverride } from '@/overrides/contact-page'
+import { Mail, MessageSquareText, ShieldCheck } from 'lucide-react';
 
-const lanes = [
-  {
-    icon: FileText,
-    title: 'PDF & document support',
-    body: 'Questions about uploads, previews, download links, or file replacements—send context and we will route it quickly.',
-  },
-  {
-    icon: Mail,
-    title: 'Partnerships',
-    body: 'Licensing, co-marketing, or integrations where our library should surface alongside your product.',
-  },
-]
+import { ContactLeadForm } from '@/components/shared/contact-lead-form';
+import { Footer } from '@/components/shared/footer';
+import { NavbarShell } from '@/components/shared/navbar-shell';
+
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Youngerlifestyle';
+
+const contactHighlights = [
+  { icon: Mail, title: 'Direct response', copy: 'Your message is saved securely and routed to the right team.' },
+  { icon: MessageSquareText, title: 'Clear details', copy: 'Share your requirement, question, or collaboration idea in one place.' },
+  { icon: ShieldCheck, title: 'Reliable follow-up', copy: 'We keep the request record so every conversation stays traceable.' },
+];
 
 export default function ContactPage() {
-  if (CONTACT_PAGE_OVERRIDE_ENABLED) {
-    return <ContactPageOverride />
-  }
-
   return (
-    <div className="min-h-screen bg-white text-neutral-950">
+    <div className="min-h-screen bg-[#f7f1e8] text-stone-950">
       <NavbarShell />
-      <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
-        <section className="grid gap-12 lg:grid-cols-[1fr_1.02fr] lg:items-start">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Contact</p>
-            <h1 className="mt-3 font-sans text-4xl font-bold tracking-[-0.04em] sm:text-5xl">We read every message with context in mind.</h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-600">
-              Tell us whether you are working with PDFs or something cross-cutting—we keep routing tight so
-              you are not bounced through unrelated queues.
-            </p>
-            <div className="mt-10 space-y-4">
-              {lanes.map((lane) => (
-                <div key={lane.title} className="rounded-[1.25rem] border border-neutral-200 bg-neutral-50/80 p-5 sm:p-6">
-                  <lane.icon className="h-5 w-5 text-violet-500" />
-                  <h2 className="mt-3 text-lg font-bold text-neutral-950">{lane.title}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-neutral-600">{lane.body}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-10 flex flex-wrap gap-6 text-sm text-neutral-600">
-              <span className="inline-flex items-center gap-2">
-                <MapPin className="h-4 w-4" /> Remote-first, US business hours
-              </span>
-            </div>
-          </div>
+      <main>
+        <section className="relative overflow-hidden px-6 py-20 md:px-10 lg:px-16">
+          <div className="absolute left-[-10%] top-10 h-72 w-72 rounded-full bg-amber-200/40 blur-3xl" />
+          <div className="absolute bottom-0 right-[-8%] h-80 w-80 rounded-full bg-stone-300/50 blur-3xl" />
 
-          <div className="rounded-[1.75rem] border border-neutral-200 bg-white p-7 shadow-[0_24px_80px_rgba(15,23,42,0.06)] sm:p-9">
-            <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-600">
-              <Sparkles className="h-3.5 w-3.5 text-violet-500" />
-              {SITE_CONFIG.name}
+          <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.35em] text-stone-500">Contact</p>
+              <h1 className="mt-5 max-w-3xl text-5xl font-black leading-[0.95] tracking-[-0.06em] text-stone-950 md:text-7xl">
+                Let&apos;s talk about your next move.
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-700">
+                Use this form to reach {siteName}. Your request will be recorded and shared with the support team for follow-up.
+              </p>
+
+              <div className="mt-8 grid gap-4">
+                {contactHighlights.map((item) => (
+                  <div key={item.title} className="flex gap-4 rounded-3xl border border-stone-200 bg-white/60 p-5 shadow-sm">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-stone-950 text-white">
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h2 className="text-base font-black text-stone-950">{item.title}</h2>
+                      <p className="mt-1 text-sm leading-6 text-stone-600">{item.copy}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <h2 className="mt-5 text-2xl font-bold text-neutral-950">Send a message</h2>
-            <p className="mt-2 text-sm text-neutral-600">We typically reply within two business days.</p>
-            <form className="mt-8 grid gap-4">
-              <input
-                className="h-12 rounded-2xl border border-neutral-200 bg-white px-4 text-sm text-neutral-950 placeholder:text-neutral-400"
-                placeholder="Your name"
-              />
-              <input
-                className="h-12 rounded-2xl border border-neutral-200 bg-white px-4 text-sm text-neutral-950 placeholder:text-neutral-400"
-                placeholder="Work email"
-              />
-              <input
-                className="h-12 rounded-2xl border border-neutral-200 bg-white px-4 text-sm text-neutral-950 placeholder:text-neutral-400"
-                placeholder="Topic (e.g., PDF upload)"
-              />
-              <textarea
-                className="min-h-[168px] rounded-2xl border border-neutral-200 bg-white px-4 py-3 text-sm text-neutral-950 placeholder:text-neutral-400"
-                placeholder="Share links, filenames, or screenshots so we can respond with the right next step."
-              />
-              <button
-                type="submit"
-                className="inline-flex h-12 items-center justify-center rounded-full bg-neutral-950 text-sm font-semibold text-white hover:bg-neutral-800"
-              >
-                Send message
-              </button>
-            </form>
+
+            <ContactLeadForm />
           </div>
         </section>
       </main>
       <Footer />
     </div>
-  )
+  );
 }
