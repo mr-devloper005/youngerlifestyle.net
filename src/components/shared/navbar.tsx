@@ -100,9 +100,9 @@ export function Navbar() {
   const navigation = useMemo(
     () =>
       SITE_CONFIG.tasks
-        .filter((task) => task.enabled)
+        .filter((task) => task.enabled && task.key !== 'profile')
         .sort((a, b) => {
-          const rank = (key: string) => (key === 'pdf' ? 0 : key === 'profile' ? 1 : 2)
+          const rank = (key: string) => (key === 'pdf' ? 0 : 1)
           const d = rank(a.key) - rank(b.key)
           return d !== 0 ? d : a.label.localeCompare(b.label)
         }),
@@ -149,7 +149,7 @@ export function Navbar() {
           <div className="hidden min-w-0 flex-1 items-center justify-center lg:flex">
             <div className={cn('flex w-full max-w-xl items-center gap-3 rounded-full px-4 py-3', palette.search)}>
               <Search className="h-4 w-4" />
-              <span className="text-sm">Search PDFs, profiles, and downloadable resources</span>
+              <span className="text-sm">Search PDFs and downloadable resources</span>
               <div className="ml-auto hidden items-center gap-1 text-xs opacity-75 md:flex">
                 <MapPin className="h-3.5 w-3.5" />
                 Resource hub
@@ -189,7 +189,7 @@ export function Navbar() {
             <div className="space-y-2 px-4 py-4">
               <div className={cn('mb-3 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium', palette.search)}>
                 <Search className="h-4 w-4" />
-                Search PDFs and profiles
+                Search PDFs
               </div>
               {mobileNavigation.map((item) => {
                 const isActive = pathname.startsWith(item.href)
@@ -316,12 +316,6 @@ export function Navbar() {
             <NavbarAuthControls />
           ) : isEditorial ? (
             <div className="hidden items-center gap-2 md:flex">
-              <Button variant="ghost" size="icon" asChild className="rounded-full text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">
-                <Link href="/search">
-                  <Globe className="h-5 w-5" />
-                  <span className="sr-only">Language and region</span>
-                </Link>
-              </Button>
               <Button size="sm" asChild className={cn('h-10 rounded-full px-6 text-sm font-semibold shadow-sm', style.cta)}>
                 <Link href="/login">Login</Link>
               </Button>

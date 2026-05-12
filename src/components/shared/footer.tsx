@@ -19,7 +19,7 @@ const taskIcons: Record<TaskKey, any> = {
 }
 
 const footerLinks = {
-  platform: SITE_CONFIG.tasks.filter((task) => task.enabled).map((task) => ({
+  platform: SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'pdf').map((task) => ({
     name: task.label,
     href: task.route,
     icon: taskIcons[task.key] || LayoutGrid,
@@ -27,19 +27,15 @@ const footerLinks = {
   company: [
     { name: 'About', href: '/about' },
     { name: 'Careers', href: '/careers' },
-    { name: 'Press', href: '/press' },
     { name: 'Contact', href: '/contact' },
   ],
   resources: [
     { name: 'Help Center', href: '/help' },
-    { name: 'Developers', href: '/developers' },
-    { name: 'Status', href: '/status' },
   ],
   legal: [
     { name: 'Privacy', href: '/privacy' },
     { name: 'Terms', href: '/terms' },
     { name: 'Cookies', href: '/cookies' },
-    { name: 'Licenses', href: '/licenses' },
   ],
 }
 
